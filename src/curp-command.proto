@@ -87,6 +87,8 @@ message CurpError {
         // 6. failed in storage layer
         // ...
         string Internal = 12;
+        // When the current node finds itself a zombie
+        google.protobuf.Empty Zombie = 13;
     }
 }
 

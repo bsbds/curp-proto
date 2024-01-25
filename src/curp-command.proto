@@ -50,31 +50,29 @@ message CurpError {
         uint64 term = 2;
     }
     oneof err {
-        // When a command conflicts with the server SP.
-        google.protobuf.Empty KeyConflict = 1;
         // When a proposal id is duplicated.
-        google.protobuf.Empty Duplicated = 2;
+        google.protobuf.Empty Duplicated = 1;
         // When the client id in a proposal id is expired.
-        google.protobuf.Empty ExpiredClientId = 3;
+        google.protobuf.Empty ExpiredClientId = 2;
         // When the conf change config is invalid.
-        google.protobuf.Empty InvalidConfig = 4;
+        google.protobuf.Empty InvalidConfig = 3;
         // When the conf change proposal remove a node which is not exists.
-        google.protobuf.Empty NodeNotExists = 5;
+        google.protobuf.Empty NodeNotExists = 4;
         // When the conf change proposal add a node which is exists.
-        google.protobuf.Empty NodeAlreadyExists = 6;
+        google.protobuf.Empty NodeAlreadyExists = 5;
         // When the conf change proposal promote a lazy learner.
-        google.protobuf.Empty LearnerNotCatchUp = 7;
+        google.protobuf.Empty LearnerNotCatchUp = 6;
         // When the cluster is shutting down
-        google.protobuf.Empty ShuttingDown = 8;
+        google.protobuf.Empty ShuttingDown = 7;
         // When the request cluster_version does not match the cluster's.
-        google.protobuf.Empty WrongClusterVersion = 9;
+        google.protobuf.Empty WrongClusterVersion = 8;
         // When rpc transport error happens, this means the request does not send
         // to server
-        google.protobuf.Empty RpcTransport = 10;
+        google.protobuf.Empty RpcTransport = 9;
 
         // When the request should be send to leader and this node is not the
         // leader. Return the context to client to update its state.
-        Redirect redirect = 11;
+        Redirect redirect = 10;
 
         // The internal error that the client never concerned.
         // e.g.
@@ -86,9 +84,9 @@ message CurpError {
         // serialize.
         // 6. failed in storage layer
         // ...
-        string Internal = 12;
+        string Internal = 11;
         // When the current node finds itself a zombie
-        google.protobuf.Empty Zombie = 13;
+        google.protobuf.Empty Zombie = 12;
     }
 }
 
@@ -103,21 +101,31 @@ message ProposeRequest {
 
 message ProposeResponse {
     CmdResult result = 1;
+    bool conflict = 2;
 }
 
-message WaitSyncedRequest {
-    ProposeId propose_id = 1;
-    uint64 cluster_version = 2;
-}
-
-message WaitSyncedResponse {
+message SyncedResponse {
     // The serialized command after sync result
     // The original type is Result<Command::ASR, Command::Error>
     CmdResult after_sync_result = 1;
+}
 
-    // The serialized command execute result
-    // The original type is Result<Command::ER, Command::Error>
-    CmdResult exe_result = 2;
+message OpResponse {
+    oneof op {
+        ProposeResponse propose = 1;
+        SyncedResponse synced = 2;
+    }
+}
+
+message RecordRequest {
+    ProposeId propose_id = 1;
+    // The serialized command
+    // The original type is `Command`
+    bytes command = 2;
+}
+
+message RecordResponse {
+    bool conflict = 1;
 }
 
 message FetchClusterRequest { 
@@ -188,8 +196,8 @@ message PublishResponse {
 
 
 service Protocol {
-    rpc Propose(ProposeRequest) returns (ProposeResponse);
-    rpc WaitSynced(WaitSyncedRequest) returns (WaitSyncedResponse);
+    rpc ProposeStream(ProposeRequest) returns (stream OpResponse);
+    rpc Record(RecordRequest) returns (RecordResponse);
     rpc ProposeConfChange(ProposeConfChangeRequest) returns (ProposeConfChangeResponse);
     rpc Publish(PublishRequest) returns (PublishResponse);
     rpc Shutdown(ShutdownRequest) returns (ShutdownResponse);

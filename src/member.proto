@@ -1,0 +1,24 @@
+// Message definitions for membership related RPCs
+syntax = "proto3";
+
+package memberpb;
+
+message AddLearnerRequest {
+    repeated string node_addrs = 1;
+}
+
+message AddLearnerResponse {
+    repeated uint64 node_ids = 1;
+}
+
+message RemoveLearnerRequest {
+    repeated uint64 node_ids = 1;
+}
+
+message RemoveLearnerResponse {
+}
+
+service MemberProtocol {
+    rpc AddLearner(AddLearnerRequest) returns (AddLearnerResponse);
+    rpc RemoveLearner(RemoveLearnerRequest) returns (RemoveLearnerResponse);
+}

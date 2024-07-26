@@ -101,6 +101,8 @@ message CurpError {
         string LeaderTransfer = 13;
         // When the leader is a zombie
         google.protobuf.Empty Zombie = 14;
+        // When the membership change is invalid
+        google.protobuf.Empty InvalidMemberChange = 15;
     }
 }
 

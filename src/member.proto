@@ -17,3 +17,17 @@ message RemoveLearnerRequest {
 
 message RemoveLearnerResponse {
 }
+
+message AddMemberRequest {
+    repeated uint64 node_ids = 1;
+}
+
+message AddMemberResponse {
+}
+
+message RemoveMemberRequest {
+    repeated uint64 node_ids = 1;
+}
+
+message RemoveMemberResponse {
+}

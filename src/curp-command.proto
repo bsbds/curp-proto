@@ -283,6 +283,8 @@ service Protocol {
     // Membership RPCs
     rpc AddLearner(AddLearnerRequest) returns (AddLearnerResponse);
     rpc RemoveLearner(RemoveLearnerRequest) returns (RemoveLearnerResponse);
+    rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
+    rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
 
     // Stream
     rpc LeaseKeepAlive(stream LeaseKeepAliveMsg) returns (LeaseKeepAliveMsg);

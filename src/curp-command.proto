@@ -197,28 +197,6 @@ message ShutdownRequest {
 
 message ShutdownResponse {}
 
-message ProposeConfChangeRequest {
-    enum ConfChangeType {
-        Add        = 0;
-        AddLearner = 1;
-        Remove     = 2;
-        Update     = 3;
-        Promote    = 4;
-    }
-    message ConfChange {
-        ConfChangeType change_type = 1;
-        uint64 node_id             = 2;
-        repeated string address    = 3;
-    }
-    ProposeId propose_id        = 1;
-    repeated ConfChange changes = 2;
-    uint64 cluster_version      = 3;
-}
-
-message ProposeConfChangeResponse {
-    repeated Member members = 1;
-}
-
 message PublishRequest {
     ProposeId propose_id        = 1;
     uint64 node_id              = 2;
@@ -271,8 +249,6 @@ service Protocol {
     rpc ProposeStream(ProposeRequest) returns (stream OpResponse);
     rpc Record(RecordRequest) returns (RecordResponse);
     rpc ReadIndex(ReadIndexRequest) returns (ReadIndexResponse);
-    rpc ProposeConfChange(ProposeConfChangeRequest)
-        returns (ProposeConfChangeResponse);
     rpc Publish(PublishRequest) returns (PublishResponse);
     rpc Shutdown(ShutdownRequest) returns (ShutdownResponse);
     rpc FetchCluster(FetchClusterRequest) returns (FetchClusterResponse);

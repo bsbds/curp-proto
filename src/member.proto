@@ -1,7 +1,7 @@
 // Message definitions for membership related RPCs
 syntax = "proto3";
 
-package memberpb;
+package commandpb;
 
 message AddLearnerRequest {
     repeated string node_addrs = 1;
@@ -16,9 +16,4 @@ message RemoveLearnerRequest {
 }
 
 message RemoveLearnerResponse {
-}
-
-service MemberProtocol {
-    rpc AddLearner(AddLearnerRequest) returns (AddLearnerResponse);
-    rpc RemoveLearner(RemoveLearnerRequest) returns (RemoveLearnerResponse);
 }

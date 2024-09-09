@@ -4,6 +4,7 @@ syntax = "proto3";
 package commandpb;
 
 import "google/protobuf/empty.proto";
+import "member.proto";
 
 option go_package           = ".;curpapi";
 option java_package         = "com.curp.protobuf";
@@ -256,6 +257,10 @@ service Protocol {
     rpc FetchCluster(FetchClusterRequest) returns (FetchClusterResponse);
     rpc FetchReadState(FetchReadStateRequest) returns (FetchReadStateResponse);
     rpc MoveLeader(MoveLeaderRequest) returns (MoveLeaderResponse);
+
+    // Membership RPCs
+    rpc AddLearner(AddLearnerRequest) returns (AddLearnerResponse);
+    rpc RemoveLearner(RemoveLearnerRequest) returns (RemoveLearnerResponse);
 
     // Stream
     rpc LeaseKeepAlive(stream LeaseKeepAliveMsg) returns (LeaseKeepAliveMsg);

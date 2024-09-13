@@ -185,15 +185,6 @@ message ShutdownRequest {
 
 message ShutdownResponse {}
 
-message PublishRequest {
-    ProposeId propose_id        = 1;
-    uint64 node_id              = 2;
-    string name                 = 3;
-    repeated string client_urls = 4;
-}
-
-message PublishResponse {}
-
 message MoveLeaderRequest {
     uint64 node_id         = 1;
     uint64 cluster_version = 2;
@@ -237,7 +228,6 @@ service Protocol {
     rpc ProposeStream(ProposeRequest) returns (stream OpResponse);
     rpc Record(RecordRequest) returns (RecordResponse);
     rpc ReadIndex(ReadIndexRequest) returns (ReadIndexResponse);
-    rpc Publish(PublishRequest) returns (PublishResponse);
     rpc Shutdown(ShutdownRequest) returns (ShutdownResponse);
     rpc FetchReadState(FetchReadStateRequest) returns (FetchReadStateResponse);
     rpc MoveLeader(MoveLeaderRequest) returns (MoveLeaderResponse);

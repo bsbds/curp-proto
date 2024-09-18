@@ -3,8 +3,17 @@ syntax = "proto3";
 
 package commandpb;
 
+message NodeMetadata {
+    /// Name of the node.
+    string name = 1;
+    /// List of URLs used for peer-to-peer communication.
+    repeated string peer_urls = 2;
+    /// List of URLs used for client communication.
+    repeated string client_urls = 3;
+}
+
 message AddLearnerRequest {
-    repeated string node_addrs = 1;
+    repeated NodeMetadata nodes = 1;
 }
 
 message AddLearnerResponse {

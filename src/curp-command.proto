@@ -220,7 +220,7 @@ message QuorumSet {
 // A node, including it's id and address
 message Node {
     uint64 node_id = 1;
-    string addr = 2;
+    NodeMetadata meta = 2;
 }
 
 service Protocol {

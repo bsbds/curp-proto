@@ -3,6 +3,12 @@ syntax = "proto3";
 
 package commandpb;
 
+// A node, including it's id and address
+message Node {
+    uint64 node_id = 1;
+    NodeMetadata meta = 2;
+}
+
 message NodeMetadata {
     /// Name of the node.
     string name = 1;
@@ -13,11 +19,10 @@ message NodeMetadata {
 }
 
 message AddLearnerRequest {
-    repeated NodeMetadata nodes = 1;
+    repeated Node nodes = 1;
 }
 
 message AddLearnerResponse {
-    repeated uint64 node_ids = 1;
 }
 
 message RemoveLearnerRequest {

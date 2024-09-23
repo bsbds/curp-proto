@@ -217,12 +217,6 @@ message QuorumSet {
     repeated uint64 set = 1;
 }
 
-// A node, including it's id and address
-message Node {
-    uint64 node_id = 1;
-    NodeMetadata meta = 2;
-}
-
 service Protocol {
     // Unary
     rpc ProposeStream(ProposeRequest) returns (stream OpResponse);

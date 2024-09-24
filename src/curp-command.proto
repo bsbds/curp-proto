@@ -226,12 +226,7 @@ service Protocol {
     rpc FetchReadState(FetchReadStateRequest) returns (FetchReadStateResponse);
     rpc MoveLeader(MoveLeaderRequest) returns (MoveLeaderResponse);
     rpc FetchMembership(FetchMembershipRequest) returns (FetchMembershipResponse);
-
-    // Membership RPCs
-    rpc AddLearner(AddLearnerRequest) returns (AddLearnerResponse);
-    rpc RemoveLearner(RemoveLearnerRequest) returns (RemoveLearnerResponse);
-    rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
-    rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
+    rpc ChangeMembership(ChangeMembershipRequest) returns (ChangeMembershipResponse);
 
     // Stream
     rpc LeaseKeepAlive(stream LeaseKeepAliveMsg) returns (LeaseKeepAliveMsg);

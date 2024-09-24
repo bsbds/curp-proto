@@ -3,6 +3,28 @@ syntax = "proto3";
 
 package commandpb;
 
+import "google/protobuf/empty.proto";
+
+message ChangeMembershipRequest {
+    repeated MembershipChange changes = 1;
+
+    message MembershipChange {
+        oneof change {
+            // Adds a new learner.
+            Node add = 1;
+            // Removes a learner by its id.
+            uint64 remove = 2;
+            // Promotes a learner to voter
+            uint64 promote = 3;
+            // Demotes a voter to learner.
+            uint64 demote = 4;
+        }
+    }
+}
+
+message ChangeMembershipResponse {
+}
+
 // A node, including it's id and address
 message Node {
     uint64 node_id = 1;
@@ -16,32 +38,4 @@ message NodeMetadata {
     repeated string peer_urls = 2;
     /// List of URLs used for client communication.
     repeated string client_urls = 3;
-}
-
-message AddLearnerRequest {
-    repeated Node nodes = 1;
-}
-
-message AddLearnerResponse {
-}
-
-message RemoveLearnerRequest {
-    repeated uint64 node_ids = 1;
-}
-
-message RemoveLearnerResponse {
-}
-
-message AddMemberRequest {
-    repeated uint64 node_ids = 1;
-}
-
-message AddMemberResponse {
-}
-
-message RemoveMemberRequest {
-    repeated uint64 node_ids = 1;
-}
-
-message RemoveMemberResponse {
 }

@@ -22,7 +22,13 @@ message ChangeMembershipRequest {
     }
 }
 
-message ChangeMembershipResponse {
+// Contains the latest membership
+message MembershipResponse {
+    // Joint quorum sets
+    repeated QuorumSet members = 1;
+    repeated Node nodes = 2;
+    uint64 term = 3;
+    uint64 leader_id = 4;
 }
 
 // A node, including it's id and address
@@ -38,4 +44,9 @@ message NodeMetadata {
     repeated string peer_urls = 2;
     /// List of URLs used for client communication.
     repeated string client_urls = 3;
+}
+
+/// A quroum set, containing all node ids
+message QuorumSet {
+    repeated uint64 set = 1;
 }

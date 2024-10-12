@@ -214,6 +214,7 @@ service Protocol {
     rpc MoveLeader(MoveLeaderRequest) returns (MoveLeaderResponse);
     rpc FetchMembership(FetchMembershipRequest) returns (MembershipResponse);
     rpc ChangeMembership(ChangeMembershipRequest) returns (MembershipResponse);
+    rpc WaitLearner(WaitLearnerRequest) returns (stream WaitLearnerResponse);
 
     // Stream
     rpc LeaseKeepAlive(stream LeaseKeepAliveMsg) returns (LeaseKeepAliveMsg);

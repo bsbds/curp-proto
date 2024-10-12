@@ -50,3 +50,13 @@ message NodeMetadata {
 message QuorumSet {
     repeated uint64 set = 1;
 }
+
+message WaitLearnerRequest {
+    repeated uint64 node_ids = 1;
+}
+
+message WaitLearnerResponse {
+    uint64 node_id = 1;
+    uint64 current_idx = 2;
+    uint64 latest_idx = 3;
+}

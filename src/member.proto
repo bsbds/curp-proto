@@ -6,7 +6,8 @@ package commandpb;
 import "google/protobuf/empty.proto";
 
 message ChangeMembershipRequest {
-    repeated MembershipChange changes = 1;
+    uint64 cluster_version = 1;
+    repeated MembershipChange changes = 2;
 
     message MembershipChange {
         oneof change {

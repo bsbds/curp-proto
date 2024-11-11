@@ -120,6 +120,7 @@ message ProposeRequest {
 message ProposeResponse {
     CmdResult result = 1;
     bool conflict = 2;
+    uint64 sp_version = 3;
 }
 
 message SyncedResponse {
@@ -144,6 +145,7 @@ message RecordRequest {
 
 message RecordResponse {
     bool conflict = 1;
+    uint64 sp_version = 2;
 }
 
 message ShutdownRequest {

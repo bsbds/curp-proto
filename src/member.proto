@@ -9,7 +9,7 @@ option java_outer_classname = "CommandProto";
 option java_multiple_files  = true;
 
 message ChangeMembershipRequest {
-    bytes cluster_version = 1;
+    uint64 cluster_version = 1;
     repeated MembershipChange changes = 2;
 
     message MembershipChange {
@@ -33,6 +33,7 @@ message MembershipResponse {
     repeated Node nodes = 2;
     uint64 term = 3;
     uint64 leader_id = 4;
+    uint64 cluster_version = 5;
 }
 
 // A node, including it's id and address
